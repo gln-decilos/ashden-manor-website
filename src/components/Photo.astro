@@ -1,0 +1,50 @@
+---
+// Serves the pre-optimised WebP set in /public/img (see AGENTS.md for how
+// those files are produced). Each entry lists the widths that exist on disk
+// plus the source aspect ratio, so the browser can reserve space up front.
+const photos = {
+  manor: { widths: [480, 735], ratio: [735, 1103] },
+  drive: { widths: [480, 736], ratio: [736, 1104] },
+  feast: { widths: [480, 736], ratio: [736, 1104] },
+  toast: { widths: [480, 736], ratio: [736, 920] },
+  dressing: { widths: [480, 736], ratio: [736, 1012] },
+  panelled: { widths: [480, 800], ratio: [1080, 1350] },
+  fountain: { widths: [480, 675], ratio: [675, 1200] },
+  avenue: { widths: [480, 736], ratio: [736, 955] },
+  dancing: { widths: [480, 736], ratio: [736, 907] },
+  sparklers: { widths: [480, 800], ratio: [1080, 1350] },
+  canapes: { widths: [480, 800], ratio: [1080, 1350] },
+  salmon: { widths: [480, 800], ratio: [1080, 1350] },
+  tower: { widths: [480, 735], ratio: [735, 963] },
+} as const;
+
+export type PhotoName = keyof typeof photos;
+
+interface Props {
+  name: PhotoName;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  eager?: boolean;
+  position?: string;
+}
+
+const { name, alt, sizes = '(min-width: 900px) 40vw, 90vw', class: className, eager = false, position } = Astro.props;
+const { widths, ratio } = photos[name];
+const srcset = widths.map((w) => `/img/${name}-${w}.webp ${w}w`).join(', ');
+const largest = widths[widths.length - 1];
+---
+
+<img
+  src={`/img/${name}-${largest}.webp`}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={ratio[0]}
+  height={ratio[1]}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding="async"
+  class={className}
+  style={position ? `object-position: ${position}` : undefined}
+/>
