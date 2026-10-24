@@ -215,12 +215,14 @@ const ribbon = [
       <section class="section exclusive" id="exclusive-use" aria-labelledby="exclusive-title">
         <div class="container exclusive__grid">
           <figure class="exclusive__media" data-reveal="left">
-            <div class="panel panel--hover">
-              <Photo
-                name="drive"
-                sizes="(min-width: 900px) 30rem, 90vw"
-                alt="A green vintage sports car drives through open stone gateposts dressed with flowers, down a tree-lined gravel drive into the countryside"
-              />
+            <div class="exclusive__frame">
+              <div class="arch exclusive__arch arch--hover">
+                <Photo
+                  name="drive"
+                  sizes="(min-width: 900px) 22rem, 80vw"
+                  alt="A green vintage sports car drives through open stone gateposts dressed with flowers, down a tree-lined gravel drive into the countryside"
+                />
+              </div>
             </div>
             <figcaption class="media-caption">
               <span aria-hidden="true">◈</span> The drive, dressed for the day
@@ -235,16 +237,20 @@ const ribbon = [
               from the morning you arrive to the end of the party, the only people in
               the house are your guests and the team looking after them.
             </p>
-            <ol class="numbered">
+            <div class="exclusive__list" data-reveal>
               {
                 exclusive.map((item, i) => (
-                  <li data-reveal style={`--i:${i}`}>
-                    <h3>{item.title}</h3>
+                  <details class="exclusive__item" name="exclusive" open={i === 0}>
+                    <summary>
+                      <span class="exclusive__num" aria-hidden="true">{['I', 'II', 'III', 'IV', 'V'][i]}</span>
+                      <span class="exclusive__title">{item.title}</span>
+                      <span class="exclusive__icon" aria-hidden="true"></span>
+                    </summary>
                     <p>{item.body}</p>
-                  </li>
+                  </details>
                 ))
               }
-            </ol>
+            </div>
           </div>
         </div>
       </section>
@@ -254,22 +260,25 @@ const ribbon = [
         <div class="container hundred__grid">
           <div class="hundred__head">
             <p class="hundred__number" aria-hidden="true" data-count="100">0</p>
-            <p class="eyebrow" data-reveal>Is a hundred enough?</p>
-            <h2 id="hundred-title" data-reveal>It’s the number that makes the day.</h2>
-            <p class="intro" data-reveal>
-              Couples often ask whether a hundred guests is too few. Once they’ve
+            <div class="hundred__copy">
+              <p class="eyebrow" data-reveal>Is a hundred enough?</p>
+              <h2 id="hundred-title" data-reveal>It’s the number that makes the day.</h2>
+            </div>
+            <p class="intro hundred__intro" data-reveal>
+              <strong>Couples often ask whether a hundred guests is too few. Once they’ve
               walked round, most of them tell us it’s exactly right, and the reasons
-              are mostly about how the day feels.
+              are mostly about how the day feels.</strong>
             </p>
           </div>
           <figure class="hundred__media" data-reveal="right">
             <div class="arch arch--soft arch--hover">
               <Photo
                 name="feast"
-                sizes="(min-width: 900px) 26rem, 90vw"
+                sizes="(min-width: 900px) 34rem, 90vw"
                 alt="Guests lean in across a long candlelit table crowded with sharing plates, passing food to one another"
               />
             </div>
+            <figcaption>Room for everyone who matters.</figcaption>
           </figure>
           <ul class="hundred__points">
             <li data-reveal style="--i:0">
