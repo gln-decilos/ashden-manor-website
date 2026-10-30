@@ -150,6 +150,7 @@ const ribbon = [
           <a href="#exclusive-use"><span>The manor</span></a>
           <a href="#food"><span>Food</span></a>
           <a href="#the-day"><span>Your day</span></a>
+          <a href="#matchmaker"><span>MatchMaker</span></a>
           <a href="#enquire"><span>Questions</span></a>
           <a class="btn btn--dark btn--small header-visit magnetic" href="#enquire">
             <span>Arrange a visit</span>
@@ -449,7 +450,276 @@ const ribbon = [
         </div>
       </section>
 
-      <!-- 8. Enquiry -->
+
+      <!-- 8. MatchMaker -->
+      <section class="section matchmaker" id="matchmaker" aria-labelledby="matchmaker-title">
+        <div class="container">
+          <div class="matchmaker__head">
+            <p class="eyebrow" data-reveal>The MatchMaker</p>
+            <h2 id="matchmaker-title" data-reveal>Your day, priced in a minute.</h2>
+            <span class="ornament" data-reveal aria-hidden="true"></span>
+            <p class="intro" data-reveal>
+              Choose your month, your day and your guest numbers, and watch the
+              price build line by line. No emailing, no waiting. Every figure is
+              Ashden’s own.
+            </p>
+            <button class="mm-price-trigger" type="button" data-mm-price-open aria-haspopup="dialog" aria-controls="mm-price-dialog">
+              View the full price list <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+
+          <dialog class="mm-price-dialog" id="mm-price-dialog" aria-labelledby="mm-price-title">
+            <div class="mm-price-paper">
+              <button class="mm-price-close" type="button" data-mm-price-close aria-label="Close price list">×</button>
+              <div class="mm-price-brand">
+                <img src="/img/logo-crest-ink.webp" alt="" width="54" height="50" />
+                <span>Ashden Manor</span>
+              </div>
+              <p class="eyebrow">A little clarity, before the big day</p>
+              <h2 id="mm-price-title">Our wedding price list</h2>
+              <p class="mm-price-intro">Exclusive use of the manor for your full wedding day, from ceremony through to evening party.</p>
+
+              <div class="mm-price-section">
+                <h3>Exclusive use · Full day</h3>
+                <div class="mm-price-table-wrap">
+                  <table class="mm-price-table">
+                    <thead><tr><th scope="col">Season</th><th scope="col">Mon–Thu</th><th scope="col">Fri or Sun</th><th scope="col">Saturday</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">November – March</th><td>£4,500</td><td>£6,000</td><td>£8,000</td></tr>
+                      <tr><th scope="row">April, May, October</th><td>£5,500</td><td>£7,500</td><td>£10,000</td></tr>
+                      <tr><th scope="row">June – September</th><td>£6,500</td><td>£9,000</td><td>£12,000</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="mm-price-note">Venue hire includes 50 day guests. Additional day guests are £95 each, up to a maximum of 100 guests.</p>
+              </div>
+
+              <div class="mm-price-section">
+                <h3>Optional additions</h3>
+                <dl class="mm-price-extras">
+                  <div><dt>Evening guests, joining from 8 pm</dt><dd>£45 each</dd></div>
+                  <div><dt>Ceremony in the gardens rather than the ceremony room</dt><dd>£750</dd></div>
+                  <div><dt>Private dressing room the night before</dt><dd>£400</dd></div>
+                </dl>
+              </div>
+              <p class="mm-price-footer">The manor, gardens, dining room and ceremony room are yours exclusively for the day.</p>
+            </div>
+          </dialog>
+
+          <noscript>
+            <p class="matchmaker__noscript">
+              The MatchMaker needs JavaScript to work out your price. If you’d rather,
+              <a href="#enquire">send us your plans below</a> and we’ll reply with a figure.
+            </p>
+          </noscript>
+
+          <div class="matchmaker__grid" data-matchmaker>
+            <!-- Questions -->
+            <form class="matchmaker__card" id="mm-form" data-mm-form novalidate aria-label="Plan your day">
+              <fieldset class="form__group mm-step">
+                <legend class="form__legend"><span class="mm-step__n" aria-hidden="true">1</span> Your month</legend>
+                <div class="mm-months" role="radiogroup" aria-label="Month of the wedding">
+                  {
+                    [
+                      ['jan', 'Jan', 'January', 1], ['feb', 'Feb', 'February', 1], ['mar', 'Mar', 'March', 1],
+                      ['apr', 'Apr', 'April', 2], ['may', 'May', 'May', 2], ['jun', 'Jun', 'June', 3],
+                      ['jul', 'Jul', 'July', 3], ['aug', 'Aug', 'August', 3], ['sep', 'Sep', 'September', 3],
+                      ['oct', 'Oct', 'October', 2], ['nov', 'Nov', 'November', 1], ['dec', 'Dec', 'December', 1],
+                    ].map(([value, short, full, tier]) => (
+                      <label class="mm-tile">
+                        <input type="radio" name="month" value={value} checked={value === 'jun'} />
+                        <span class="mm-tile__box">
+                          <span class="mm-tile__name" aria-hidden="true">{short}</span>
+                          <span class="visually-hidden">{full}</span>
+                          <span class="mm-tile__tier" aria-hidden="true"></span>
+                        </span>
+                      </label>
+                    ))
+                  }
+                </div>
+                
+              </fieldset>
+
+              <fieldset class="form__group mm-step">
+                <legend class="form__legend"><span class="mm-step__n" aria-hidden="true">2</span> Your day of the week</legend>
+                <div class="mm-days" role="radiogroup" aria-label="Day of the week">
+                  <label class="mm-tile">
+                    <input type="radio" name="day" value="weekday" />
+                    <span class="mm-tile__box"><span class="mm-tile__name">Monday to Thursday</span></span>
+                  </label>
+                  <label class="mm-tile">
+                    <input type="radio" name="day" value="frisun" />
+                    <span class="mm-tile__box"><span class="mm-tile__name">Friday or Sunday</span></span>
+                  </label>
+                  <label class="mm-tile">
+                    <input type="radio" name="day" value="saturday" checked />
+                    <span class="mm-tile__box"><span class="mm-tile__name">Saturday</span></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="form__group mm-step">
+                <legend class="form__legend"><span class="mm-step__n" aria-hidden="true">3</span> Your guests</legend>
+
+                <div class="mm-guest">
+                  <div class="mm-guest__copy">
+                    <label for="mm-day-guests" class="mm-guest__label">Day guests</label>
+                    <p class="field__help" id="mm-day-help">Ceremony through to the evening party. The first 50 are included, then £95 each, up to 100.</p>
+                  </div>
+                  <div class="mm-stepper">
+                    <button type="button" data-step="day" data-change="-1" aria-label="One fewer day guest">−</button>
+                    <input id="mm-day-guests" name="dayGuests" type="number" inputmode="numeric" min="1" max="100" step="1" value="50" aria-describedby="mm-day-help mm-day-msg" />
+                    <button type="button" data-step="day" data-change="1" aria-label="One more day guest">+</button>
+                  </div>
+                  <div class="mm-range">
+                    <input id="mm-day-range" type="range" min="1" max="100" step="1" value="50" aria-label="Day guests, slider" />
+                    <div class="mm-range__ticks" aria-hidden="true"><span>1</span><span>50 included</span><span>100</span></div>
+                  </div>
+                  <p class="field__error mm-msg" id="mm-day-msg" aria-live="polite"></p>
+                </div>
+
+                <div class="mm-guest">
+                  <div class="mm-guest__copy">
+                    <label for="mm-evening-guests" class="mm-guest__label">Evening guests <span class="opt">optional</span></label>
+                    <p class="field__help" id="mm-evening-help">Friends who join the party from 8 pm. £45 each.</p>
+                  </div>
+                  <div class="mm-stepper">
+                    <button type="button" data-step="evening" data-change="-1" aria-label="One fewer evening guest">−</button>
+                    <input id="mm-evening-guests" name="eveningGuests" type="number" inputmode="numeric" min="0" max="100" step="1" value="0" aria-describedby="mm-evening-help mm-evening-msg" />
+                    <button type="button" data-step="evening" data-change="1" aria-label="One more evening guest">+</button>
+                  </div>
+                  <p class="field__error mm-msg" id="mm-evening-msg" aria-live="polite"></p>
+                </div>
+              </fieldset>
+
+              <fieldset class="form__group mm-step">
+                <legend class="form__legend"><span class="mm-step__n" aria-hidden="true">4</span> Little extras <span class="opt">optional</span></legend>
+                <div class="mm-extras">
+                  <label class="mm-extra">
+                    <input type="checkbox" name="garden" value="yes" />
+                    <span class="mm-extra__copy">
+                      <strong>Ceremony in the gardens</strong>
+                      <small>Rather than the ceremony room</small>
+                    </span>
+                    <span class="mm-extra__price">+ £750</span>
+                  </label>
+                  <label class="mm-extra">
+                    <input type="checkbox" name="dressing" value="yes" />
+                    <span class="mm-extra__copy">
+                      <strong>Private dressing room the night before</strong>
+                      <small>Yours from the evening before the wedding</small>
+                    </span>
+                    <span class="mm-extra__price">+ £400</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button type="button" class="mm-reset" data-mm-reset>Start again</button>
+            </form>
+
+            <!-- Estimate -->
+            <aside class="matchmaker__panel" id="mm-estimate" aria-labelledby="mm-estimate-title">
+              <div class="mm-receipt__brand" aria-label="Ashden Manor">
+                <img src="/img/logo-crest-chalk.webp" alt="" width="58" height="58" loading="eager" />
+                <span class="mm-receipt__brand-name">Ashden Manor</span>
+                <span class="mm-receipt__brand-rule" aria-hidden="true"></span>
+              </div>
+              <p class="eyebrow" id="mm-estimate-title">Your estimate</p>
+              <p class="mm-summary" data-mm-summary>June · Saturday · 50 day guests</p>
+
+              <p class="mm-total__label" id="mm-total-label">Estimated total</p>
+              <p class="mm-total" aria-labelledby="mm-total-label"><output id="mm-total" data-mm-total for="mm-form">£12,000</output></p>
+              <p class="visually-hidden" role="status" aria-live="polite" data-mm-announce></p>
+
+              <ul class="mm-ledger" aria-label="What each part costs">
+                <li data-mm-row="venue">
+                  <span class="mm-ledger__name">Exclusive use, full day<small data-mm-venue-note>June to September · Saturday</small></span>
+                  <span class="mm-ledger__amt" data-mm-venue>£12,000</span>
+                </li>
+                <li data-mm-row="day" class="is-zero">
+                  <span class="mm-ledger__name">Additional day guests<small data-mm-day-note>First 50 included</small></span>
+                  <span class="mm-ledger__amt" data-mm-day-cost>Included</span>
+                </li>
+                <li data-mm-row="evening" class="is-zero">
+                  <span class="mm-ledger__name">Evening guests<small data-mm-evening-note>None added</small></span>
+                  <span class="mm-ledger__amt" data-mm-evening-cost>—</span>
+                </li>
+                <li data-mm-row="garden" class="is-zero">
+                  <span class="mm-ledger__name">Ceremony in the gardens</span>
+                  <span class="mm-ledger__amt" data-mm-garden>—</span>
+                </li>
+                <li data-mm-row="dressing" class="is-zero">
+                  <span class="mm-ledger__name">Dressing room the night before</span>
+                  <span class="mm-ledger__amt" data-mm-dressing>—</span>
+                </li>
+                <li class="mm-ledger__total">
+                  <span class="mm-ledger__name">Total</span>
+                  <span class="mm-ledger__amt" data-mm-total-line>£12,000</span>
+                </li>
+              </ul>
+              <p class="mm-included">
+                Exclusive use includes the manor, the gardens, the dining room and the ceremony room.
+              </p>
+              <p class="mm-foot">A guide to the day, confirmed with you before anything is agreed. <a href="#enquire">Have a question instead?</a></p>
+              <button type="button" class="mm-download" data-mm-download>
+                <span aria-hidden="true">↓</span> Download your estimate
+              </button>
+              <p class="mm-download__note">A keepsake copy of your estimate, ready to save or share.</p>
+            </aside>
+
+            <!-- Lead capture -->
+            <div class="matchmaker__lead enquire__card">
+              <form class="mm-lead" name="matchmaker" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-mm-lead novalidate>
+                <input type="hidden" name="form-name" value="matchmaker" />
+                <input type="hidden" name="subject" value="New MatchMaker estimate from the Ashden Manor website" />
+                <input type="hidden" name="estimate" data-mm-hidden-estimate />
+                <input type="hidden" name="total" data-mm-hidden-total />
+                <p class="visually-hidden">
+                  <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                </p>
+                <fieldset class="form__group">
+                  <legend class="form__legend"><span class="mm-step__n" aria-hidden="true">5</span> Send it to me</legend>
+                  <p class="mm-lead__intro">Leave your name and email and we’ll come back to you with this estimate and a time to see the house. No commitment, just a conversation.</p>
+                  <div class="form__row">
+                    <div class="field">
+                      <label for="mm-name">Your name <span class="req" aria-hidden="true">*</span></label>
+                      <input id="mm-name" name="name" type="text" autocomplete="name" required aria-describedby="mm-name-err" />
+                      <p class="field__error" id="mm-name-err"></p>
+                    </div>
+                    <div class="field">
+                      <label for="mm-email">Email <span class="req" aria-hidden="true">*</span></label>
+                      <input id="mm-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="mm-email-err" />
+                      <p class="field__error" id="mm-email-err"></p>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form__footer">
+                  <button class="btn btn--dark form__submit" type="submit">
+                    <span class="form__submit-label">Send me my estimate</span>
+                  </button>
+                  <p class="form__small">We’ll only use your details to reply about your wedding.</p>
+                </div>
+                <p class="form__status" role="alert" aria-live="assertive"></p>
+              </form>
+              <div class="form-success" tabindex="-1" hidden>
+                <img src="/img/logo-crest-ink.webp" alt="" width="160" height="148" />
+                <h3>Thank you<span data-success-name></span>.</h3>
+                <p data-success-copy>Your estimate is with the Ashden team. Someone will be in touch personally.</p>
+                <a class="link-arrow link-arrow--dark" href="#enquire">Arrange a visit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small screens: keeps the running total in view while the questions are answered -->
+        <div class="mm-bar" data-mm-bar hidden>
+          <p class="mm-bar__total"><span>Estimated total</span><strong data-mm-bar-total>£12,000</strong></p>
+          <a class="btn btn--light btn--small" href="#mm-estimate">See breakdown</a>
+        </div>
+      </section>
+
+      <!-- 9. Enquiry -->
+
       <section class="section enquire" id="enquire" aria-labelledby="enquire-title">
         <div class="container enquire__grid">
           <div class="enquire__intro">
@@ -617,7 +887,18 @@ const ribbon = [
     <script>
       import '../scripts/reveal';
       import '../scripts/enquiry';
+      import '../scripts/matchmaker';
       import '../scripts/motion';
+
+      const priceDialog = document.querySelector<HTMLDialogElement>('#mm-price-dialog');
+      const priceOpen = document.querySelector<HTMLButtonElement>('[data-mm-price-open]');
+      const priceClose = document.querySelector<HTMLButtonElement>('[data-mm-price-close]');
+
+      priceOpen?.addEventListener('click', () => priceDialog?.showModal());
+      priceClose?.addEventListener('click', () => priceDialog?.close());
+      priceDialog?.addEventListener('click', (event) => {
+        if (event.target === priceDialog) priceDialog.close();
+      });
 
       const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
       const siteNav = document.querySelector<HTMLElement>('.site-nav');
